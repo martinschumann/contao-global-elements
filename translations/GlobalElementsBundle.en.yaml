@@ -1,0 +1,8 @@
+action:
+    introspect: 
+        0: Introspect/edit the references to the content element
+        1: Introspect/edit the references to the content element ID %s
+error:
+    introspect:
+        sqlerror: >
+            Unable to filter referencing content elements due to an SQL-Error: "%s"

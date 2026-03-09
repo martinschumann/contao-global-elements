@@ -1,0 +1,82 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    contao_garage.global_elements.listener.article_load_config:
+        class: ContaoGarage\GlobalElements\EventListener\ArticleLoadConfigListener
+        public: true;
+        arguments:
+            - '@contao.routing.scope_matcher'
+            - '@request_stack'
+            - '@database_connection'
+            - '@service_container'
+            - '@contao.framework'
+            - '@translator'
+        tags:
+            - { name: contao.callback, table: tl_article, target: config.onload, method: onLoadConfig }
+
+    # approved
+    contao_garage.global_elements.listener.article_list_operation:
+        class: ContaoGarage\GlobalElements\EventListener\ArticleListOperationListener
+        public: true;
+        arguments:
+            - '@contao.routing.scope_matcher'
+            - '@request_stack'
+            - '@translator'
+            - '@service_container'
+        tags:
+            - { name: contao.callback, table: tl_article, target: list.operations.edit.button, method: disableButton }
+            - { name: contao.callback, table: tl_article, target: list.operations.copy.button, method: disableButton }
+            - { name: contao.callback, table: tl_article, target: list.operations.cut.button, method: disableButton }
+            - { name: contao.callback, table: tl_article, target: list.operations.delete.button, method: disableButton }
+            - { name: contao.callback, table: tl_article, target: list.operations.show.button, method: disableButton }
+            - { name: contao.callback, table: tl_article, target: list.operations.toggle.button, method: disableButton }
+
+    contao_garage.global_elements.listener.content_load_config:
+        class: ContaoGarage\GlobalElements\EventListener\ContentLoadConfigListener
+        public: true;
+        arguments:
+            - '@contao.routing.scope_matcher'
+            - '@request_stack'
+            - '@database_connection'
+            - '@service_container'
+            - '@contao.framework'
+        tags:
+            - { name: contao.callback, table: tl_content, target: config.onload, method: onLoadConfig, priority: 100 }
+
+    contao_garage.global_elements.listener.content_list_operation:
+        class: ContaoGarage\GlobalElements\EventListener\ContentListOperationListener
+        public: true;
+        arguments:
+            - '@contao.routing.scope_matcher'
+            - '@request_stack'
+            - '@translator'
+            - '@service_container'
+        tags:
+            - { name: contao.callback, table: tl_content, target: list.operations.edit.button, method: disableEditButton }
+            - { name: contao.callback, table: tl_content, target: list.operations.delete.button, method: disableDeleteButton, priority: 10 }
+            - { name: contao.callback, table: tl_content, target: list.operations.show.button, method: adjustShowButton }
+
+    contao_garage.global_elements.listener.kernel_request:
+        class: ContaoGarage\GlobalElements\EventListener\KernelRequestListener
+        public: true;
+        arguments:
+            - '@contao.routing.scope_matcher'
+            - '@request_stack'
+            - '@service_container'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    contao_garage.global_elements.listener.kernel_response:
+        class: ContaoGarage\GlobalElements\EventListener\KernelResponseListener
+        public: true;
+        arguments:
+            - '@contao.routing.scope_matcher'
+            - '@request_stack'
+            - '@service_container'
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+
+
+

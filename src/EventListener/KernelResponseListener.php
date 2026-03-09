@@ -1,0 +1,49 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of contao-garage/contao-global-elements.
+ *
+ * @author    Martin Schumann <martin.schumann@ontao-garage.de>
+ * @license   LGPL-3.0-or-later
+ * @copyright Contao Garage 2026
+ */
+
+namespace ContaoGarage\GlobalElements\EventListener;
+
+use Contao\CoreBundle\Routing\ScopeMatcher;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
+
+class KernelResponseListener
+{
+    public function __construct(
+        private readonly ScopeMatcher $scopeMatcher,
+        private readonly RequestStack $requestStack,
+        private readonly ContainerInterface $container,
+    ) {
+    }
+
+    public function onKernelResponse(ResponseEvent $event): void
+    {
+        if (!$this->scopeMatcher->isBackendRequest($this->requestStack->getCurrentRequest())) {
+            return;
+        }
+
+        $sessionBag = $this->requestStack->getSession()->getBag('contao_backend');
+        $data = $sessionBag->all();
+
+        // Restore discarded filter and page node
+        if (isset($data['discardedFilter']['tl_article']) && \is_array($data['discardedFilter']['tl_article'])) {
+            $sessionBag->set('filter', $data['discardedFilter']);
+            $sessionBag->set('discardedFilter', []);
+        }
+
+        if (isset($data['discardedPageNode']) && ((int) $data['discardedPageNode'] > 0)) {
+            $sessionBag->set('tl_page_node', $data['discardedPageNode']);
+            $sessionBag->set('discardedPageNode', null);
+        }
+    }
+}

@@ -1,0 +1,18 @@
+cg_global_elements_archive:
+    new: 
+        0: Neu
+        1: Ein neues Archiv für Inhaltselemente anlegen
+    edit: Archiv ID %s bearbeiten
+    children: Inhaltselemente des Archivs ID %s bearbeiten
+    delete: Archiv ID %s löschen
+    show: Details des Archivs ID %s anzeigen
+    title_legend: Titel
+    title: 
+        0: Titel
+        1: Bitte geben Sie den Archiv-Titel ein.
+    description: 
+        0: Beschreibung
+        1: Geben Sie eine Beschreibung für das Archiv ein.
+    tstamp: 
+        0: Änderungsdatum
+        1: Datum und Uhrzeit der letzten Änderung

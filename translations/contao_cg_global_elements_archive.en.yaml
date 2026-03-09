@@ -1,0 +1,18 @@
+cg_global_elements_archive:
+    new: 
+        0: New
+        1: Create a new archive for content elements
+    edit: Edit archive ID %s
+    children: Edit the content elements of archive ID %s
+    delete: Delete archive ID %s
+    show: Show the details of archive ID %s
+    title_legend: Title
+    title: 
+        0: Title
+        1: Please enter an archive title.
+    description: 
+        0: Description
+        1: Enter a description of the archive.
+    tstamp: 
+        0: Revision date
+        1: Date and time of the latest revision

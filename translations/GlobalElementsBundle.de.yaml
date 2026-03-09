@@ -1,0 +1,8 @@
+action:
+    introspect: 
+        0: Referenzierungen des Inhaltselements untersuchen/bearbeiten
+        1: Referenzierungen des Inhaltselements ID %s untersuchen/bearbeiten
+error:
+    introspect:
+        sqlerror: >
+            Filterung auf referenzierende Inhaltselemente nicht möglich aufgrund eines SQL-Fehlers: "%s"
