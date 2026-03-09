@@ -1,0 +1,35 @@
+{
+    "name": "contao-garage/contao-global-elements",
+    "description": "Contao 5 CMS module for managed-edition",
+    "type": "contao-bundle",
+    "homepage": "https://contao-garage.de",
+    "license": "LGPL-3.0+",
+    "authors": [
+        {
+            "name": "Martin Schumann",
+            "homepage": "https://github.com/martinschumann"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "contao/core-bundle": "^5.3",
+        "contao/test-case": "^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "ContaoGarage\\GlobalElements\\": "src/"
+        },
+        "classmap": [
+            "contao/"
+        ],
+        "exclude-from-classmap": [
+            "contao/config/",
+            "contao/dca/",
+            "contao/languages/",
+            "contao/templates/"
+        ]
+    },
+    "extra": {
+        "contao-manager-plugin": "ContaoGarage\\GlobalElements\\ContaoManager\\Plugin"
+    }
+}
