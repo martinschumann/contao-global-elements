@@ -1,0 +1,14 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="contao/languages/en/cg_global_elements_archive.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="MOD.global_elements.0">
+        <source>Global elements</source>
+        <target>Globale Elemente</target>
+      </trans-unit>
+      <trans-unit id="MOD.global_elements.1">
+        <source>Administrate global elements</source>
+        <target>Globale Inhaltselemente verwalten</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

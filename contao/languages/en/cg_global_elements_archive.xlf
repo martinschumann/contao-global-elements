@@ -1,0 +1,48 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="contao/languages/en/cg_global_elements_archive.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="cg_global_elements_archive.new.0">
+        <source>New</source>
+      </trans-unit>
+      <trans-unit id="cg_global_elements_archive.new.1">
+        <source>Create a new archive for content elements</source>
+      </trans-unit>
+      <trans-unit id="cg_global_elements_archive.edit">
+        <source>Edit archive ID %s</source>
+      </trans-unit>
+      <trans-unit id="cg_global_elements_archive.children">
+        <source>Edit the content elements of archive ID %s</source>
+      </trans-unit>
+      <trans-unit id="cg_global_elements_archive.copy">
+        <source>Duplicate archive ID %s</source>
+      </trans-unit>
+      <trans-unit id="cg_global_elements_archive.delete">
+        <source>Delete archive ID %s</source>
+      </trans-unit>
+      <trans-unit id="cg_global_elements_archive.show">
+        <source>Show the details of archive ID %s</source>
+      </trans-unit>
+      <trans-unit id="cg_global_elements_archive.tstamp.0">
+        <source>Revision date</source>
+      </trans-unit>
+      <trans-unit id="cg_global_elements_archive.tstamp.1">
+        <source>Date and time of the latest revision</source>
+      </trans-unit>
+      <trans-unit id="cg_global_elements_archive.title_legend">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="cg_global_elements_archive.title.0">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="cg_global_elements_archive.title.1">
+        <source>Please enter an archive title.</source>
+      </trans-unit>
+      <trans-unit id="cg_global_elements_archive.description.0">
+        <source>Description</source>
+      </trans-unit>
+      <trans-unit id="cg_global_elements_archive.description.1">
+        <source>Enter a description of the archive.</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
