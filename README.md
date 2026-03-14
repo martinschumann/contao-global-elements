@@ -5,7 +5,7 @@ Contao bundle supplying a backend module to help organizing numerously reused co
 
 Content elements reused by referencing can be stored in site-independent archives.
 
-For referenced elements in these archives the details pop up is replaced by an article tree to introspect and edit all references of an element.
+For referenced elements in these archives the details pop up is replaced by an article tree to introspect and edit all references of an element (does not include usage in insert tags).
 
 ## Installation
 
