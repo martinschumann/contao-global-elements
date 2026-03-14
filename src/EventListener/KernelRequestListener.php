@@ -18,22 +18,26 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class KernelRequestListener
 {
+    private $request;
+
     public function __construct(
         private readonly ScopeMatcher $scopeMatcher,
         private readonly RequestStack $requestStack,
     ) {
+        $this->request = $this->requestStack->getCurrentRequest();
     }
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        if (!$this->scopeMatcher->isBackendRequest($this->requestStack->getCurrentRequest())) {
+        if (! $this->scopeMatcher->isBackendRequest($this->request)) {
             return;
         }
 
         if (
-            'global_elements' === $this->requestStack->getCurrentRequest()?->query->get('be_mod')
-            && $this->requestStack->getCurrentRequest()?->query->get('filter')
-            && $this->requestStack->getCurrentRequest()?->query->get('cid')
+            null !== $this->request
+            && 'global_elements' === $this->request->query->get('be_mod')
+            && $this->request->query->get('filter')
+            && $this->request->query->get('cid')
         ) {
             $sessionBag = $this->requestStack->getSession()->getBag('contao_backend');
             $data = $sessionBag->all();

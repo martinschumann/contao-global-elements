@@ -34,6 +34,7 @@ class GlobalElementsExtension extends Extension
             $loader->load('listener.yaml');
         } catch (\Exception $exception) {
             echo $exception->getMessage();
+
             exit(1);
         }
     }

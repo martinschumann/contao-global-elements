@@ -19,19 +19,23 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContentListOperationListener
 {
+    private $request;
+
     public function __construct(
         private readonly RequestStack $requestStack,
         private readonly TranslatorInterface $translator,
     ) {
+        $this->request = $this->requestStack->getCurrentRequest();
     }
 
     public function disableEditButton(DataContainerOperation $operation): void
     {
         if (
-            'article' === $this->requestStack->getCurrentRequest()?->query->get('do')
-            && $this->requestStack->getCurrentRequest()?->query->get('filter')
-            && $this->requestStack->getCurrentRequest()?->query->get('popup')
-            && $this->requestStack->getCurrentRequest()?->query->get('cid')
+            null !== $this->request
+            && 'article' === $this->request->query->get('do')
+            && $this->request->query->get('filter')
+            && $this->request->query->get('popup')
+            && $this->request->query->get('cid')
         ) {
             if ('alias' !== $operation->getRecord()['type']) {
                 $operation->disable();
@@ -44,10 +48,11 @@ class ContentListOperationListener
         // In popup introspection allow deleting only for aliases (elements inluding
         // elements by reference) and disable deleting for referenced elements
         if (
-            'article' === $this->requestStack->getCurrentRequest()?->query->get('do')
-            && $this->requestStack->getCurrentRequest()?->query->get('filter')
-            && $this->requestStack->getCurrentRequest()?->query->get('popup')
-            && $this->requestStack->getCurrentRequest()?->query->get('cid')
+            null !== $this->request
+            && 'article' === $this->request->query->get('do')
+            && $this->request->query->get('filter')
+            && $this->request->query->get('popup')
+            && $this->request->query->get('cid')
         ) {
             if ('alias' !== $operation->getRecord()['type']) {
                 $operation->disable();
@@ -65,8 +70,9 @@ class ContentListOperationListener
     {
         // Alter show button for introspecting references of a content element
         if (
-            'global_elements' === $this->requestStack->getCurrentRequest()?->query->get('do')
-            && 'tl_content' === $this->requestStack->getCurrentRequest()?->query->get('table')
+            null !== $this->request
+            && 'global_elements' === $this->request->query->get('do')
+            && 'tl_content' === $this->request->query->get('table')
             && ('cg_global_elements_archive' === $operation->getRecord()['ptable'])
         ) {
             $count = ContentModel::countByCteAlias($operation->getRecord()['id']);
@@ -91,10 +97,11 @@ class ContentListOperationListener
 
         // Disable any other actions in introspection popup
         if (
-            'article' === $this->requestStack->getCurrentRequest()?->query->get('do')
-            && $this->requestStack->getCurrentRequest()?->query->get('filter')
-            && $this->requestStack->getCurrentRequest()?->query->get('popup')
-            && $this->requestStack->getCurrentRequest()?->query->get('cid')
+            null !== $this->request
+            && 'article' === $this->request->query->get('do')
+            && $this->request->query->get('filter')
+            && $this->request->query->get('popup')
+            && $this->request->query->get('cid')
         ) {
             $operation->disable();
         }

@@ -17,18 +17,22 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class ContentLoadConfigListener
 {
+    private $request;
+
     public function __construct(
         private readonly RequestStack $requestStack,
     ) {
+        $this->request = $this->requestStack->getCurrentRequest();
     }
 
     public function onLoadConfig(DataContainer|null $dc = null): void
     {
         if (
-            'article' === $this->requestStack->getCurrentRequest()?->query->get('do')
-            && $this->requestStack->getCurrentRequest()?->query->get('filter')
-            && $this->requestStack->getCurrentRequest()?->query->get('popup')
-            && $this->requestStack->getCurrentRequest()?->query->get('cid')
+            null !== $this->request
+            && 'article' === $this->request->query->get('do')
+            && $this->request->query->get('filter')
+            && $this->request->query->get('popup')
+            && $this->request->query->get('cid')
         ) {
             $GLOBALS['TL_DCA']['tl_content']['config']['closed'] = true;
             $GLOBALS['TL_DCA']['tl_content']['config']['notCopyable'] = true;

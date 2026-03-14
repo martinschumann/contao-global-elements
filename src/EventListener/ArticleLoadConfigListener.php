@@ -21,19 +21,23 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ArticleLoadConfigListener
 {
+    private $request;
+
     public function __construct(
         private readonly RequestStack $requestStack,
         private readonly Connection $connection,
         private readonly TranslatorInterface $translator,
     ) {
+        $this->request = $this->requestStack->getCurrentRequest();
     }
 
     public function onLoadConfig(DataContainer|null $dc = null): void
     {
         if (
-            'global_elements' === $this->requestStack->getCurrentRequest()?->query->get('be_mod')
-            && $this->requestStack->getCurrentRequest()?->query->get('filter')
-            && $this->requestStack->getCurrentRequest()?->query->get('cid')
+            null !== $this->request
+            && 'global_elements' === $this->request->query->get('be_mod')
+            && $this->request->query->get('filter')
+            && $this->request->query->get('cid')
         ) {
             // Do not show any operation buttons
             $GLOBALS['TL_DCA']['tl_article']['list']['sorting']['panelLayout'] = '';
@@ -45,12 +49,12 @@ class ArticleLoadConfigListener
                 $queryBuilder
                     ->select('*')
                     ->from('tl_content')
-                    ->andWhere('cteAlias = '.$this->requestStack->getCurrentRequest()?->query->get('cid'))
+                    ->andWhere('cteAlias = ?')
                 ;
 
                 $query = 'CREATE TEMPORARY TABLE tl_content '.$queryBuilder->getSQL();
                 $statement = $this->connection->prepare($query);
-                $statement->execute();
+                $statement->execute([(int) $this->request->query->get('cid')]);
             } catch (DoctrineException $exception) {
                 Message::addError(\sprintf($this->translator->trans('error.introspect.sqlerror', [], 'GlobalElementsBundle'), $exception->getMessage()));
 

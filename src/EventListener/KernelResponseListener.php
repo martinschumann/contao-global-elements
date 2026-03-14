@@ -18,19 +18,22 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class KernelResponseListener
 {
+    private $request;
+
     public function __construct(
         private readonly ScopeMatcher $scopeMatcher,
         private readonly RequestStack $requestStack,
     ) {
+        $this->request = $this->requestStack->getCurrentRequest();
     }
 
     public function onKernelResponse(ResponseEvent $event): void
     {
-        if (!$this->scopeMatcher->isBackendRequest($this->requestStack->getCurrentRequest())) {
+        if (! $this->scopeMatcher->isBackendRequest($this->request)) {
             return;
         }
 
-        $sessionBag = $this->requestStack->getSession()->getBag('contao_backend');
+        $sessionBag = $this->request->getSession()->getBag('contao_backend');
         $data = $sessionBag->all();
 
         // Restore discarded filter and page node
