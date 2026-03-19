@@ -54,7 +54,8 @@ class ArticleLoadConfigListener
 
                 $query = 'CREATE TEMPORARY TABLE tl_content '.$queryBuilder->getSQL();
                 $statement = $this->connection->prepare($query);
-                $statement->execute([(int) $this->request->query->get('cid')]);
+                $statement->bindValue(1, (int) $this->request->query->get('cid'));
+                $statement->executeQuery();
             } catch (DoctrineException $exception) {
                 Message::addError(\sprintf($this->translator->trans('error.introspect.sqlerror', [], 'GlobalElementsBundle'), $exception->getMessage()));
 
@@ -72,7 +73,7 @@ class ArticleLoadConfigListener
 
                 $query = 'CREATE TEMPORARY TABLE tl_article '.$queryBuilder->getSQL();
                 $statement = $this->connection->prepare($query);
-                $statement->execute();
+                $statement->executeQuery();
             } catch (DoctrineException $exception) {
                 Message::addError(\sprintf($this->translator->trans('error.introspect.sqlerror', [], 'GlobalElementsBundle'), $exception->getMessage()));
 
